@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoryTellerModelStoreContainer" CdmEntityContainer="StoryTeller">
+    <EntitySetMapping Name="AspNetUserRoles">
+      <EntityTypeMapping TypeName="StoryTeller.Model.AspNetUserRole">
+        <MappingFragment StoreEntitySet="AspNetUserRoles">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="StoryTeller.Model.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="StoryTellerName" ColumnName="StoryTellerName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="StoryTeller.Model.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Story_ID" ColumnName="Story_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Chapters">
+      <EntityTypeMapping TypeName="StoryTeller.Model.Chapter">
+        <MappingFragment StoreEntitySet="Chapters">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Story_ID" ColumnName="Story_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChapterToVotes">
+      <EntityTypeMapping TypeName="StoryTeller.Model.ChapterToVote">
+        <MappingFragment StoreEntitySet="ChapterToVotes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Chapter_ID" ColumnName="Chapter_ID" />
+          <ScalarProperty Name="Voting_ID" ColumnName="Voting_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Likes">
+      <EntityTypeMapping TypeName="StoryTeller.Model.Like">
+        <MappingFragment StoreEntitySet="Likes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="ChapterToVote_ID" ColumnName="ChapterToVote_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stories">
+      <EntityTypeMapping TypeName="StoryTeller.Model.Story">
+        <MappingFragment StoreEntitySet="Stories">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="IsVoting" ColumnName="IsVoting" />
+          <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+          <ScalarProperty Name="MaxChaptersNumber" ColumnName="MaxChaptersNumber" />
+          <ScalarProperty Name="TimeForVotings" ColumnName="TimeForVotings" />
+          <ScalarProperty Name="TimeBetweenVotings" ColumnName="TimeBetweenVotings" />
+          <ScalarProperty Name="Creator_Id" ColumnName="Creator_Id" />
+          <ScalarProperty Name="EndOfVotingsDate" ColumnName="EndOfVotingsDate" />
+          <ScalarProperty Name="NextVotingDate" ColumnName="NextVotingDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Votings">
+      <EntityTypeMapping TypeName="StoryTeller.Model.Voting">
+        <MappingFragment StoreEntitySet="Votings">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Started" ColumnName="Started" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

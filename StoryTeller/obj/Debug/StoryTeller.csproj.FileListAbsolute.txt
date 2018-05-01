@@ -99,3 +99,8 @@ C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\D
 C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.Migrations.ini.resources
 C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.Migrations.Addedtables.resources
 C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.Migrations.Addedcategoriestable.resources
+C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.Migrations.empty.resources
+C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.Migrations.storyClassChanged.resources
+C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.Migrations.empty1.resources
+C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.Migrations.empty2.resources
+C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.Migrations.empty3.resources

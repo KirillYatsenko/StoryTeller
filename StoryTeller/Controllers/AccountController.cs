@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using StoryTeller.Models;
+using StoryTeller.Domain.Models;
+using System.IO;
+using StoryTeller.Common;
 
 namespace StoryTeller.Controllers
 {
@@ -23,7 +26,7 @@ namespace StoryTeller.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -35,9 +38,9 @@ namespace StoryTeller.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -53,6 +56,48 @@ namespace StoryTeller.Controllers
             }
         }
 
+        private ApplicationUser CurrentUser
+        {
+            get
+            {
+                return UserManager.FindById(User.Identity.GetUserId());
+            }
+        }
+
+        [AllowAnonymous]
+        public FileContentResult UserPhoto(string userID = "")
+        {
+            ApplicationUser user;
+            if (userID == "")
+            {
+                user = CurrentUser;
+            }
+            else
+            {
+                user = db.Users.FirstOrDefault(x => x.Id == userID);
+            }
+
+            if (user.Photo != null)
+            {
+                return new FileContentResult(user.Photo, "image/jpeg");
+            }
+            else
+            {
+                string fileName = HttpContext.Server.MapPath(@"~/Content/Images/storyteller.jpg");
+                var imageData = FileBinaryConvertor.GetFile(fileName);
+
+                return File(imageData, "image/png");
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult GetUserDetails(string userID)
+        {
+            var user = db.Users.FirstOrDefault(x => x.Id == userID);
+            return PartialView("~/Views/Shared/_UserDialog.cshtml", user);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public JsonResult IsUserExists(string StoryTellerName)
@@ -60,8 +105,7 @@ namespace StoryTeller.Controllers
             return Json(!db.Users.Any(x => x.StoryTellerName == StoryTellerName));
         }
 
-        //
-        // GET: /Account/Login
+        //  GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -128,7 +172,7 @@ namespace StoryTeller.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,16 +199,18 @@ namespace StoryTeller.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register([Bind(Exclude = "Photo")] RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StoryTellerName = model.StoryTellerName };
+                byte[] imageData = FileUploader.GetFile("Photo", Request);
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StoryTellerName = model.StoryTellerName, Bio = model.Bio, Photo = imageData };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -179,8 +225,6 @@ namespace StoryTeller.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-   
 
         //
         // GET: /Account/ConfirmEmail
@@ -362,7 +406,7 @@ namespace StoryTeller.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation([Bind(Exclude = "Photo")] ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -377,7 +421,10 @@ namespace StoryTeller.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                var photo = FileUploader.GetFile("Photo", Request);
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StoryTellerName = model.StoryTellerName, Bio = model.Bio, Photo = photo };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

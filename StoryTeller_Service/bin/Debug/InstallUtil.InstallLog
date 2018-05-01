@@ -1,0 +1,14 @@
+﻿
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller_Service\bin\Debug\StoryTeller_Service.exe assembly's progress.
+The file is located at C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller_Service\bin\Debug\StoryTeller_Service.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller_Service\bin\Debug\StoryTeller_Service.exe assembly's progress.
+The file is located at C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller_Service\bin\Debug\StoryTeller_Service.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.

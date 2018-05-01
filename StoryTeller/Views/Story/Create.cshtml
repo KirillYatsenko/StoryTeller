@@ -1,0 +1,106 @@
+﻿@model StoryTeller.Models.StoryViewModel
+
+@{
+    ViewBag.Title = "Create Story";
+}
+
+<p class="h2 text-success" style="margin-top:20px"><b>Create Story</b></p>
+
+
+@using (Html.BeginForm("Create", "Story", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <div class="minutesLabel"> @Html.LabelFor(model => model.MaxChaptersNumber)</div>
+                <a data-toggle="popover" data-content="I'm a popover!" href="#"> <span class="glyphicon glyphicon-info-sign"></span></a>
+                @Html.EditorFor(model => model.MaxChaptersNumber)
+                @Html.ValidationMessageFor(model => model.MaxChaptersNumber, "", new { @class = "text-danger" })
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaxChaptersNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaxChaptersNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaxChaptersNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeForVotings, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeForVotings, new { htmlAttributes = new { @class = "form-control" } })
+                <div style="display:inline-block;font-style:italic">
+                    In minutes
+                </div>
+                @Html.ValidationMessageFor(model => model.TimeForVotings, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeBetweenVotings, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeBetweenVotings, new { htmlAttributes = new { @class = "form-control" } })
+                <div style="display:inline-block;font-style:italic">
+                    In minutes
+                </div>
+                @Html.ValidationMessageFor(model => model.TimeBetweenVotings, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaxChapterLength, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaxChapterLength, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaxChapterLength, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstChapterText, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstChapterText, new { htmlAttributes = new { @class = "form-control createStoryFirstChapter", @id="formcontol_width" } })
+                @Html.ValidationMessageFor(model => model.FirstChapterText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <label id="file-label" for="file-upload" class="custom-file-upload">
+                    <span class="glyphicon glyphicon-download-alt"></span> Story Picture
+                </label>
+                <input id="file-upload" type="file" name="Photo" accept=".png,.jpg,.jpeg,.gif,.tif" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-10">
+                <div>
+                    <button class="btn btn-info" type="submit">
+                        <b>Submit</b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@Html.ActionLink("< Back to Stories", "Index", new { controller = "Home" }, new { hidefocus = "hidefocus" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

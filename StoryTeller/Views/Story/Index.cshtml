@@ -1,0 +1,81 @@
+﻿@model IEnumerable<StoryTeller.Models.Story>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Voting.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsVoting)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsClosed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxChaptersNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NextVotingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeForVotings)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeBetweenVotings)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Voting.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsVoting)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsClosed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxChaptersNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NextVotingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeForVotings)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeBetweenVotings)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

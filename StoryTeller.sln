@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryTeller", "StoryTeller\StoryTeller.csproj", "{C09D8281-2FAA-4AD2-AFB2-E4CEAA79B673}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryTeller.UI", "StoryTeller\StoryTeller.UI.csproj", "{C09D8281-2FAA-4AD2-AFB2-E4CEAA79B673}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryTeller.Timer", "StoryTeller.Timer\StoryTeller.Timer.csproj", "{645C75C0-C6ED-4513-8C69-06922DE4F3CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryTeller.Model", "StoryTeller.Domain\StoryTeller.Model.csproj", "{5578E524-9BB8-4D97-A6E6-796A73C9FAC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{C09D8281-2FAA-4AD2-AFB2-E4CEAA79B673}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C09D8281-2FAA-4AD2-AFB2-E4CEAA79B673}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C09D8281-2FAA-4AD2-AFB2-E4CEAA79B673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{645C75C0-C6ED-4513-8C69-06922DE4F3CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{645C75C0-C6ED-4513-8C69-06922DE4F3CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{645C75C0-C6ED-4513-8C69-06922DE4F3CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{645C75C0-C6ED-4513-8C69-06922DE4F3CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5578E524-9BB8-4D97-A6E6-796A73C9FAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5578E524-9BB8-4D97-A6E6-796A73C9FAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5578E524-9BB8-4D97-A6E6-796A73C9FAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5578E524-9BB8-4D97-A6E6-796A73C9FAC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

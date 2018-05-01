@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5578E524-9BB8-4D97-A6E6-796A73C9FAC6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StoryTeller.Domain</RootNamespace>
+    <AssemblyName>StoryTeller.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Timer_Helper.cs" />
+    <Compile Include="Migrations\201803190920377_ini.cs" />
+    <Compile Include="Migrations\201803190920377_ini.Designer.cs">
+      <DependentUpon>201803190920377_ini.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804020749287_ini2.cs" />
+    <Compile Include="Migrations\201804020749287_ini2.Designer.cs">
+      <DependentUpon>201804020749287_ini2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804020837433_ini21.cs" />
+    <Compile Include="Migrations\201804020837433_ini21.Designer.cs">
+      <DependentUpon>201804020837433_ini21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804161059309_updatedStory.cs" />
+    <Compile Include="Migrations\201804161059309_updatedStory.Designer.cs">
+      <DependentUpon>201804161059309_updatedStory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804182208396_--help.cs" />
+    <Compile Include="Migrations\201804182208396_--help.Designer.cs">
+      <DependentUpon>201804182208396_--help.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804191142192_addPhotoProp.cs" />
+    <Compile Include="Migrations\201804191142192_addPhotoProp.Designer.cs">
+      <DependentUpon>201804191142192_addPhotoProp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804200732395_ini1.cs" />
+    <Compile Include="Migrations\201804200732395_ini1.Designer.cs">
+      <DependentUpon>201804200732395_ini1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804211612156_addStoryPicture.cs" />
+    <Compile Include="Migrations\201804211612156_addStoryPicture.Designer.cs">
+      <DependentUpon>201804211612156_addStoryPicture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804211635039_addStoryPicture2.cs" />
+    <Compile Include="Migrations\201804211635039_addStoryPicture2.Designer.cs">
+      <DependentUpon>201804211635039_addStoryPicture2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804221139473_addedStoryLikes.cs" />
+    <Compile Include="Migrations\201804221139473_addedStoryLikes.Designer.cs">
+      <DependentUpon>201804221139473_addedStoryLikes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804231329114_BIO.cs" />
+    <Compile Include="Migrations\201804231329114_BIO.Designer.cs">
+      <DependentUpon>201804231329114_BIO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Chapter.cs" />
+    <Compile Include="Models\ChapterToVote.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Like.cs" />
+    <Compile Include="Models\Story.cs" />
+    <Compile Include="Models\StoryLikes.cs" />
+    <Compile Include="Models\Voting.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803190920377_ini.resx">
+      <DependentUpon>201803190920377_ini.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804020749287_ini2.resx">
+      <DependentUpon>201804020749287_ini2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804020837433_ini21.resx">
+      <DependentUpon>201804020837433_ini21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804161059309_updatedStory.resx">
+      <DependentUpon>201804161059309_updatedStory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804182208396_--help.resx">
+      <DependentUpon>201804182208396_--help.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804191142192_addPhotoProp.resx">
+      <DependentUpon>201804191142192_addPhotoProp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804200732395_ini1.resx">
+      <DependentUpon>201804200732395_ini1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804211612156_addStoryPicture.resx">
+      <DependentUpon>201804211612156_addStoryPicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804211635039_addStoryPicture2.resx">
+      <DependentUpon>201804211635039_addStoryPicture2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804221139473_addedStoryLikes.resx">
+      <DependentUpon>201804221139473_addedStoryLikes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804231329114_BIO.resx">
+      <DependentUpon>201804231329114_BIO.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

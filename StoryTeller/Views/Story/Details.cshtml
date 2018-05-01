@@ -1,0 +1,258 @@
+﻿@model StoryTeller.Domain.Models.Story
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+
+@{
+    string glyphicon;
+    string color;
+
+    if (Model.IsFull)
+    {
+        glyphicon = "glyphicon glyphicon-ok";
+        color = "text-success";
+    }
+    else
+    {
+        glyphicon = "glyphicon glyphicon-pencil";
+        color = "text-warning";
+    }
+
+}
+
+<div class="well">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row hidden-md hidden-lg"><h1 class="text-center">@Model.Title</h1></div>
+
+            <div class="pull-left col-md-4 col-xs-12 thumb-contenido"><img class="center-block img-responsive" src='@Url.Action("StoryPhoto", "Story", new { storyID = Model.ID} )' /></div>
+            <div class="">
+                <h1 class="hidden-xs hidden-sm" style="text-align:center;"><b>@Model.Title</b></h1>
+                <hr>
+                <p class="h4"><b>Author: <a class="userDetails" href="#" data-userID="@Model.Creator.Id" data-url="@Url.Action("GetUserDetails", "Account")"><b> @Model.Creator.StoryTellerName</b></a></p>
+                <p class="h4 @color"><b>@Model.ProgressStatusText</b> <span class="@glyphicon"></span></p>
+                <p class="h5"><b>Chapters @Model.Chapters.Count/@Model.MaxChaptersNumber </b> </p>
+                <p class="h5"><b>Written @Model.Created.ToShortDateString() </b> </p>
+                <p class="h5"><b>Reads: @Model.ViewsCount</b></p>
+                <hr>
+                <p class="text-justify">
+                    @{
+                        var count = 1;
+                        foreach (var chapter in Model.Chapters)
+                        {
+                        <p class="h4"><b>Chapter @count </b> by <a class="text-success userDetails" data-userID="@chapter.User.Id" data-url="@Url.Action("GetUserDetails", "Account")" href="#">@chapter.User.StoryTellerName</a></p>
+                        <p>@chapter.Text</p>
+                        count++;
+                    }
+                    }
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="storyVotingSection" id="VotingSection"></div>
+
+    <!-- Modal Create Chapter -->
+    <div class="modal" id="createNewChapterModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add your chapter</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="createNewChapterDialog">
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Submit" id="createNewChapterBtn" />
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="userDetails">
+
+    </div>
+
+
+    @section scripts{
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var timer;
+
+            function updateVotingPartial() {
+                  //debugger;
+                   var storyFinished = @Model.IsFull.ToString().ToLower();
+
+                   if (storyFinished == true) {
+                            return;
+                   }
+
+                   $.ajax({
+                       url: "@Url.Action("GetVotingPartial", "Story")",
+                       type: "POST",
+                         data: { storyID: @Model.ID },
+                         success: function (result) {
+
+                              $('#VotingSection').html(result);
+
+
+                              timer = setInterval(function () {
+
+                                  var isVoting = $("#isVoting").attr("value");
+                                  if (isVoting.toLowerCase() == "false") {
+                                      $("#createNewChapterBtn").attr("disabled", false);
+                                  } else {
+                                      $("#createNewChapterBtn").attr("disabled", true);
+                                  }
+
+                                  var now = new Date().getTime();
+                                  var countDownDate = new Date(document.getElementById("countDownDate").value).getTime();
+
+                                  var distanceNow = countDownDate - now;
+
+                                  var days = Math.floor(distanceNow / (1000 * 60 * 60 * 24));
+                                  var hours = Math.floor((distanceNow % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                  var minutes = Math.floor((distanceNow % (1000 * 60 * 60)) / (1000 * 60));
+                                  var seconds = Math.floor((distanceNow % (1000 * 60)) / 1000);
+
+                                  document.getElementById("timer").innerHTML = /*days + "d " +*/ hours + "h "
+                                      + minutes + "m " + seconds + "s ";
+
+                                  var timerDialog = document.getElementById("timerDialog");
+                                  if (timerDialog) {
+                                      timerDialog.innerHTML = document.getElementById("timer").innerHTML;
+                                  }
+
+                                  if (distanceNow < 0) {
+                                      clearInterval(timer);
+                                      updateVotingPartial();
+                                  }
+                              }, 1000);
+                },
+                error: function (result) {
+                    debugger;
+                    console.log(result);
+                }
+                });
+            }
+
+
+            $(document).on('click', '#addNewChapterBtn', function () {
+                  $.ajax({
+                      url: "@Url.Action("CreateNewChapter", "Story")",
+                      data: { storyId: @Model.ID },
+                      success: function (result) {
+                          var modal = $('#modal');
+                          $("#createNewChapterDialog").html(result);
+                      }
+                  });
+            });
+
+            $(document).on('click', '#createNewChapterBtn', function () {
+                $("#formCreateNewChapter").submit();
+            });
+
+              var votedChapterBtn;// = $("#chaptersToVote").find(".btnVoted");
+
+              $(document).on('click', '.voteButton', function () {
+
+                  votedChapterBtn = $("#chaptersToVote").find(".btnVoted");
+
+                  function setVoteAttrs(btn, count) {
+                      btn.html("Vote " + count);
+                      btn.attr("data-likesCount", count);
+                  }
+
+                  function btnLikesPlusOne(btn) {
+                      var likesCount = parseInt(btn.attr("data-likesCount")) + 1;
+                      btn.attr("disabled", true);
+                      setVoteAttrs(btn, likesCount);
+                  }
+
+                  function btnLikesMinusOne(btn){
+                      var likesCount = parseInt(btn.attr("data-likesCount")) - 1;
+                      btn.attr("disabled", false);
+                      setVoteAttrs(btn, likesCount);
+                  }
+
+                  var storyID = @Model.ID;
+                  var chapterID = $(this).attr("data-chapterToVoteId");
+
+                  var btn = $(this);
+
+                  $.ajax({
+                      url: "@Url.Action("VoteChapter", "Story")",
+                      data: { storyID: storyID, chapterID: chapterID },
+                      success: function (result) {
+
+                          //debugger;
+
+                          var votedCss = "btnVoted";
+                          var notVotedCss = "btnNotVoted";
+
+                          if (btn.hasClass(votedCss)) {
+                              btn.removeClass(votedCss).addClass(notVotedCss);
+                              btnLikesMinusOne(btn)
+                          } else if (btn.hasClass(notVotedCss)) {
+
+                              //debugger;
+
+                              btn.removeClass(notVotedCss).addClass(votedCss);
+                              btnLikesPlusOne(btn);
+
+
+                              if (votedChapterBtn) {
+                                  votedChapterBtn.removeClass(votedCss).addClass(notVotedCss);
+                                  btnLikesMinusOne(votedChapterBtn);
+                              }
+
+                              votedChapterBtn = btn;
+                          }
+
+                      }, error: function (result) {
+                          alert("error")
+                      }
+                  });
+
+              });
+
+              updateVotingPartial();
+
+              $("#createNewChapterDialog").on("submit", "#formCreateNewChapter", function (e) {
+                  e.preventDefault();
+
+                  var form = $(this);
+
+                  $.ajax({
+                      url: form.attr("action"),
+                      method: form.attr("method"),
+                      data: form.serialize(),
+                      success: function (partialResult) {
+                          $("#addNewChapterBtn").innerHTML = "Edit";
+                          //debugger;
+                          $("#createNewChapterDialog").html(partialResult);
+                          clearInterval(timer);
+                          updateVotingPartial();
+                      }
+
+                  });
+              });
+
+
+
+
+        });
+
+        </script>
+    }
+
+
+

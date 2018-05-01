@@ -1,0 +1,96 @@
+﻿@model StoryTeller.Models.StoryViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Story</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Voting.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Voting.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsVoting)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsVoting)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsClosed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsClosed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxChaptersNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxChaptersNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NextVotingDatetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NextVotingDatetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeForVotings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeForVotings)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeBetweenVotings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeBetweenVotings)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

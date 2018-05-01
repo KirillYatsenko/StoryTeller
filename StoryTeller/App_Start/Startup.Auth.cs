@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using StoryTeller.Models;
+using StoryTeller.Domain.Models;
 
 namespace StoryTeller
 {
@@ -55,14 +56,14 @@ namespace StoryTeller
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "1795320297444425",
+            //   appSecret: "48ab7a61a127abec6e16128afdeb8fee");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "45361483443-g6929i43ciefcq592kuf5rjk745f4lf0.apps.googleusercontent.com",
+                ClientSecret = "ctRDIsT4l8CRn5b8l7ITzHPe"
+            });
         }
     }
 }
