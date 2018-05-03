@@ -77,7 +77,7 @@ namespace StoryTeller.Controllers
                 user = db.Users.FirstOrDefault(x => x.Id == userID);
             }
 
-            if (user.Photo != null)
+            if (user != null && userHasPhoto(user))
             {
                 return new FileContentResult(user.Photo, "image/jpeg");
             }
@@ -88,6 +88,11 @@ namespace StoryTeller.Controllers
 
                 return File(imageData, "image/png");
             }
+        }
+
+        private bool userHasPhoto(ApplicationUser user)
+        {
+            return user.Photo != null && user.Photo.Count() > 0;
         }
 
         [HttpGet]

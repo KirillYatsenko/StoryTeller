@@ -37,6 +37,7 @@ namespace StoryTeller.Domain.Models
         public virtual ICollection<ChapterToVote> ChaptersToVote { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<StoryLikes> Likes { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
         [NotMapped]
         public string ProgressStatusText

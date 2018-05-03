@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -6,6 +7,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using StoryTeller.Common;
+using StoryTeller.Domain.Models;
 using StoryTeller.Models;
 
 namespace StoryTeller.Controllers
@@ -15,6 +18,7 @@ namespace StoryTeller.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -32,9 +36,9 @@ namespace StoryTeller.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -50,30 +54,84 @@ namespace StoryTeller.Controllers
             }
         }
 
+        private ApplicationUser CurrentUser
+        {
+            get
+            {
+                return UserManager.FindById(User.Identity.GetUserId());
+            }
+        }
+
+
+        // Get: EditUser
+        [HttpGet]
+        public ActionResult Index()
+        {
+            var userViewModel = new AccountDetailsViewModel()
+            {
+                UserID = CurrentUser.Id,
+                Email = CurrentUser.Email,
+                Bio = CurrentUser.Bio,
+                StoryTellerName = CurrentUser.StoryTellerName
+            };
+
+            return View(userViewModel);
+        }
+
+        // Post: EditUser
+        [HttpPost]
+        public async Task<ActionResult> EditUser([Bind(Exclude = "Picture")] AccountDetailsViewModel accountViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await db.Users.FirstAsync(x => x.Id == accountViewModel.UserID);
+
+                user.Bio = accountViewModel.Bio;
+                user.StoryTellerName = accountViewModel.StoryTellerName;
+
+                byte[] imageData = FileUploader.GetFile("Photo", Request);
+
+                if (imageData != null && imageData.Count() > 0 )
+                {
+                    user.Photo = imageData;
+                }
+
+                db.Entry(user).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("~/Views/Manage/Index.cshtml",accountViewModel);
+        }
+
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
+        //public async Task<ActionResult> Index(ManageMessageId? message)
+        //{
+        //    ViewBag.StatusMessage =
+        //        message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+        //        : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+        //        : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
+        //        : message == ManageMessageId.Error ? "An error has occurred."
+        //        : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+        //        : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+        //        : "";
 
-            var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
-            {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
-            return View(model);
-        }
+        //    var userId = User.Identity.GetUserId();
+        //    var model = new IndexViewModel
+        //    {
+        //        UserID = CurrentUser.Id,
+        //        StoryTellerName = CurrentUser.StoryTellerName,
+
+        //        HasPassword = HasPassword(),
+        //        PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+        //        TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+        //        Logins = await UserManager.GetLoginsAsync(userId),
+        //        BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+        //    };
+        //    return View(model);
+        //}
 
         //
         // POST: /Manage/RemoveLogin
@@ -333,7 +391,7 @@ namespace StoryTeller.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +442,6 @@ namespace StoryTeller.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

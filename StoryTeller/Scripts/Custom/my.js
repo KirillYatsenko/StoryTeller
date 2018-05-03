@@ -29,14 +29,29 @@ $(document).on('click', '#closeUserDetails', function () {
     $(document).scrollTop(scroll);
 });
 
+function setImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $("#imageHolder").attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 $(document).on('change', '#file-upload', function () {
     var i = $(this).prev('label').clone();
     var file = $('#file-upload')[0].files[0].name;
     $(this).prev('label').text(file);
 
+    setImage(this);
 });
 
 $(document).ready(function () {
+
+    $("time.created").timeago();
 
     //$('#file-upload').change(function () {
     //    debugger;

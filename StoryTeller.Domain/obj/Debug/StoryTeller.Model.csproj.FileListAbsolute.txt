@@ -31,11 +31,6 @@ C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domai
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.ini.resources
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.ini2.resources
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.ini21.resources
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Model.csproj.GenerateResource.cache
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Model.csproj.CoreCompileInputs.cache
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Model.csproj.CopyComplete
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.dll
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.pdb
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.updatedStory.resources
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.help.resources
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.addPhotoProp.resources
@@ -44,3 +39,10 @@ C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domai
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.addStoryPicture2.resources
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.addedStoryLikes.resources
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.BIO.resources
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Model.csproj.GenerateResource.cache
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Model.csproj.CoreCompileInputs.cache
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Model.csproj.CopyComplete
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.dll
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.pdb
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.commentTable.resources
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Domain\obj\Debug\StoryTeller.Domain.Migrations.commentFixed.resources

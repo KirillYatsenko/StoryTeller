@@ -75,6 +75,29 @@ namespace StoryTeller.Models
         public bool RememberMe { get; set; }
     }
 
+    public class AccountDetailsViewModel
+    {
+        public string UserID { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        // Custom properties
+        [Required]
+        [Display(Name = "StoryTeller name")]
+        public string StoryTellerName { get; set; }
+
+        [Required]
+        [Display(Name = "Bio")]
+        [DataType(DataType.MultilineText)]
+        public string Bio { get; set; }
+
+        [Display(Name = "Picture")]
+        public byte[] Picture { get; set; }
+    }
+
     public class RegisterViewModel
     {
         [Required]

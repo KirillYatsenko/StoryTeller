@@ -32,11 +32,43 @@
         }
 
         <div id="chaptersToVote">
-            @foreach (var chapterToVote in Model.VotingChaptersViewModel?.ChaptersToVote)
-            {
-                <hr />
-                Html.RenderPartial("~/Views/Story/Partials/_ChapterToVote.cshtml", chapterToVote);
+            @{
+                var chapters = Model.VotingChaptersViewModel?.ChaptersToVote;
+                var chapterPartialPath = "~/Views/Story/Partials/_ChapterToVote.cshtml";
+
+                if (chapters != null && chapters.Count > 0)
+                {
+
+                    for (int i = 0; i < chapters.Count(); i += 2)
+                    {
+                        <div class="row">
+                            @{
+                                var chapter1 = chapters[i];
+                                object chapter2 = null;
+
+                                if (i + 1 < chapters.Count())
+                                {
+                                    chapter2 = chapters[i + 1];
+                                }
+
+                                Html.RenderPartial(chapterPartialPath, chapter1);
+
+                                if (chapter2 != null)
+                                {
+                                    Html.RenderPartial(chapterPartialPath, chapter2);
+                                }
+                            }
+                        </div>
+                    }
+
+                }
+
             }
+
+            @*@foreach (var chapterToVote in Model.VotingChaptersViewModel?.ChaptersToVote)
+                {
+                    Html.RenderPartial("~/Views/Story/Partials/_ChapterToVote.cshtml", chapterToVote);
+                }*@
         </div>
     }
 

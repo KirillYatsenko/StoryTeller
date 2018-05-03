@@ -27,7 +27,9 @@ namespace StoryTeller.Timer
 
                 foreach (var story in stories)
                 {
+                    db.Entry(story).Reload();
                     db.Entry(story).Collection(x => x.ChaptersToVote).Load();
+
                     Timer_Helper.SetStoryVotingState(story);
                     db.SaveChanges();
                 }

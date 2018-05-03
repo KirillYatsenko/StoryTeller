@@ -145,6 +145,12 @@ namespace StoryTeller.Controllers
             return HttpNotFound();
         }
 
+        public async Task<ActionResult> GetStoryDetails(int storyID)
+        {
+            var story = await db.Stories.FindAsync(storyID);
+            return PartialView("~/Views/Story/Partials/_StoryDetails.cshtml", story);
+        }
+
         private void setUserAddedChapter(VotingSectionViewModel votingSectionVM, int storyID)
         {
             var chapter = getUserChapterToVoteAsync(storyID).Result;
@@ -364,6 +370,17 @@ namespace StoryTeller.Controllers
             await db.SaveChangesAsync();
 
             return Json(new { success = true, operation = operation });
+        }
+
+        public async Task<ActionResult> AddComment(int storyID, string text)
+        {
+            var story = await db.Stories.FindAsync(storyID);
+
+            var comment = new Comment() { Created = DateTime.Now, Text = text, User = CurrentUser };
+            story.Comments.Add(comment);
+            await db.SaveChangesAsync();
+
+            return PartialView("~/Views/Story/Partials/_CommentSection.cshtml", story.Comments.ToList());
         }
 
         public async Task<FileContentResult> StoryPhoto(int storyID)

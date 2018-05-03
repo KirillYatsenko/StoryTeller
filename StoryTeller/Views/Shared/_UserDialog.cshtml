@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <center>
-                    <img src="@Url.Action("UserPhoto", "Account", new {userID = Model.Id } )" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                    <img src="@Url.Action("UserPhoto", "Account", new {userID = Model.Id } )" name="aboutme" width="140" height="140" border="0" class="img-circle">
                     <h3 class="media-heading">@Model.Email</h3>
                     <span><strong>Stats: </strong></span>
                     <span class="label label-warning">Stories: @Model.Stories.Count()</span>

@@ -98,10 +98,19 @@
     <Compile Include="Migrations\201804231329114_BIO.Designer.cs">
       <DependentUpon>201804231329114_BIO.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805031239395_commentTable.cs" />
+    <Compile Include="Migrations\201805031239395_commentTable.Designer.cs">
+      <DependentUpon>201805031239395_commentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805031526192_commentFixed.cs" />
+    <Compile Include="Migrations\201805031526192_commentFixed.Designer.cs">
+      <DependentUpon>201805031526192_commentFixed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\ChapterToVote.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Like.cs" />
     <Compile Include="Models\Story.cs" />
@@ -142,6 +151,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804231329114_BIO.resx">
       <DependentUpon>201804231329114_BIO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805031239395_commentTable.resx">
+      <DependentUpon>201805031239395_commentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805031526192_commentFixed.resx">
+      <DependentUpon>201805031526192_commentFixed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -5,87 +5,96 @@
 }
 
 
-@{
-    string glyphicon;
-    string color;
 
-    if (Model.IsFull)
-    {
-        glyphicon = "glyphicon glyphicon-ok";
-        color = "text-success";
-    }
-    else
-    {
-        glyphicon = "glyphicon glyphicon-pencil";
-        color = "text-warning";
-    }
 
-}
+<div id="storyDetails">
+    @Html.Partial("~/Views/Story/Partials/_StoryDetails.cshtml", Model)
+</div>
 
-<div class="well">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row hidden-md hidden-lg"><h1 class="text-center">@Model.Title</h1></div>
+<div class="storyVotingSection" id="VotingSection"></div>
 
-            <div class="pull-left col-md-4 col-xs-12 thumb-contenido"><img class="center-block img-responsive" src='@Url.Action("StoryPhoto", "Story", new { storyID = Model.ID} )' /></div>
-            <div class="">
-                <h1 class="hidden-xs hidden-sm" style="text-align:center;"><b>@Model.Title</b></h1>
-                <hr>
-                <p class="h4"><b>Author: <a class="userDetails" href="#" data-userID="@Model.Creator.Id" data-url="@Url.Action("GetUserDetails", "Account")"><b> @Model.Creator.StoryTellerName</b></a></p>
-                <p class="h4 @color"><b>@Model.ProgressStatusText</b> <span class="@glyphicon"></span></p>
-                <p class="h5"><b>Chapters @Model.Chapters.Count/@Model.MaxChaptersNumber </b> </p>
-                <p class="h5"><b>Written @Model.Created.ToShortDateString() </b> </p>
-                <p class="h5"><b>Reads: @Model.ViewsCount</b></p>
-                <hr>
-                <p class="text-justify">
-                    @{
-                        var count = 1;
-                        foreach (var chapter in Model.Chapters)
-                        {
-                        <p class="h4"><b>Chapter @count </b> by <a class="text-success userDetails" data-userID="@chapter.User.Id" data-url="@Url.Action("GetUserDetails", "Account")" href="#">@chapter.User.StoryTellerName</a></p>
-                        <p>@chapter.Text</p>
-                        count++;
-                    }
-                    }
-                    </p>
-                </div>
+<!-- Modal Create Chapter -->
+<div class="modal" id="createNewChapterModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add your chapter</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="createNewChapterDialog">
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Submit" id="createNewChapterBtn" />
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="storyVotingSection" id="VotingSection"></div>
+<div id="userDetails">
 
-    <!-- Modal Create Chapter -->
-    <div class="modal" id="createNewChapterModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Add your chapter</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="createNewChapterDialog">
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-success" value="Submit" id="createNewChapterBtn" />
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
-    <div id="userDetails">
+<hr style="margin-top:50px"/>
+<div id="commentSection">
+    @Html.Partial("~/Views/Story/Partials/_CommentSection.cshtml", Model.Comments)
+</div>
 
-    </div>
-
-
-    @section scripts{
-        <script type="text/javascript">
+@section scripts{
+    <script type="text/javascript">
 
         $(document).ready(function () {
 
+            $(document).on('input propertychange', "#comment-text", function () {
+
+                console.log("typing comment....");
+
+                if (isNotEmpty($(this).val())) {
+                    $("#btn-post-comment").prop("disabled", false);
+                } else {
+                    $("#btn-post-comment").prop("disabled", true);
+                }
+
+            });
+
+            //$("#comment-text").bind('input propertychange', function () {
+            //});
+
+            $(document).on('click', '#btn-post-comment', function () {
+
+                var commentText = $("#comment-text").val();
+
+                  $.ajax({
+                      url: "@Url.Action("AddComment", "Story")",
+                      data: { storyID: @Model.ID, text: commentText  },
+                      success: function (result) {
+                          console.log(result);
+                          $("#commentSection").html(result);
+                      }
+                  });
+            });
+
             var timer;
+
+            function isNotEmpty(text) {
+                return /\S/.test(text);
+            }
+
+            function updateStoryText() {
+                $.ajax({
+                    url: '@Url.Action("GetStoryDetails","Story")',
+                    type: 'POST',
+                    data: { storyID: @Model.ID},
+                    success: function (result) {
+                        $("#storyDetails").html(result);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
 
             function updateVotingPartial() {
                   //debugger;
@@ -134,6 +143,7 @@
                                   if (distanceNow < 0) {
                                       clearInterval(timer);
                                       updateVotingPartial();
+                                      updateStoryText();
                                   }
                               }, 1000);
                 },
@@ -251,8 +261,8 @@
 
         });
 
-        </script>
-    }
+    </script>
+}
 
 
 

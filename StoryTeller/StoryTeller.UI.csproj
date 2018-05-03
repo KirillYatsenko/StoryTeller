@@ -375,6 +375,10 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_UserDialog.cshtml" />
     <Content Include="Views\Home\Partials\_StoryEdit.cshtml" />
+    <Content Include="Views\Story\Partials\_StoryDetails.cshtml" />
+    <Content Include="Views\Story\Partials\_CommentSection.cshtml" />
+    <Content Include="Views\Story\Partials\_Comment.cshtml" />
+    <Content Include="Views\Story\Partials\_AddComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

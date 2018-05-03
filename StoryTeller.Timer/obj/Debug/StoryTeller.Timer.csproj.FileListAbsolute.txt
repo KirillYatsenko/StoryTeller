@@ -13,10 +13,6 @@ C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller.Timer
 C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.csprojResolveAssemblyReference.cache
 C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.exe
 C:\Users\Kirill\Desktop\Uniwesity\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.pdb
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.csprojResolveAssemblyReference.cache
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.csproj.CoreCompileInputs.cache
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.exe
-C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.pdb
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\bin\Debug\StoryTeller.Timer.exe.config
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\bin\Debug\StoryTeller.Timer.exe
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\bin\Debug\StoryTeller.Timer.pdb
@@ -29,4 +25,8 @@ C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\bin\Debug\EntityFramework.xml
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.csprojResolveAssemblyReference.cache
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.csproj.CoreCompileInputs.cache
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.csproj.CopyComplete
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.exe
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller.Timer\obj\Debug\StoryTeller.Timer.pdb

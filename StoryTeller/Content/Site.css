@@ -192,11 +192,11 @@ input[type="file"] {
     right: 0;
 }
 
-#bottom-right-button{
-    position:fixed;
+#bottom-right-button {
+    position: fixed;
     bottom: -4px;
     right: 20px;
-    z-index:99999;
+    z-index: 99999;
 }
 
 .liked {
@@ -243,3 +243,55 @@ input[type="file"] {
         #myUL li a:hover:not(.header) {
             background-color: #eee; /* Add a hover effect to all links, except for headers */
         }
+
+.voteButton {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+}
+
+/*-----------Comments-----------*/
+.thumbnail {
+    padding: 0px;
+}
+
+.panel {
+    position: relative;
+}
+
+.panel > .panel-heading:after, .panel > .panel-heading:before {
+        position: absolute;
+        top: 11px;
+        left: -16px;
+        right: 100%;
+        width: 0;
+        height: 0;
+        display: block;
+        content: " ";
+        border-color: transparent;
+        border-style: solid solid outset;
+        pointer-events: none;
+}
+
+.panel > .panel-heading:after {
+        border-width: 7px;
+        border-right-color: #f7f7f7;
+        margin-top: 1px;
+        margin-left: 2px;
+}
+
+.panel > .panel-heading:before {
+        border-right-color: #ddd;
+        border-width: 8px;
+}
+
+/* Comment box*/
+.commnet-area{
+    max-width:100% !important;
+    width: 100% !important;
+}
+
+
+body.modal-open {
+    overflow: hidden;
+}

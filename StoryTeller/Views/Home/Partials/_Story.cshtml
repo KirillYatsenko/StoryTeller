@@ -29,6 +29,8 @@
             <div class=" topright">
                 <button disabled type="button" class="btn btn-default btn-sm ">
                     <span class="glyphicon glyphicon-eye-open"></span> @Model.ViewsCount
+                    <span> | </span>
+                    <span class="glyphicon glyphicon-comment"></span> @Model.Comments.Count
                 </button>
                 @if (User.Identity.IsAuthenticated && Model.Creator.Id == User.Identity.GetUserId())
                 {
@@ -71,7 +73,7 @@
             <div class="col-md-7">
                 <p class="h1"><b class="title">@Html.ActionLink(Model.Title, "Details", "Story", new { ID = Model.ID }, null)</b> <small><time class="created" datetime="@Model.Created.ToString()"></time></small></p>
                 <p class="h4 @color"><b>@Model.ProgressStatusText</b> <span class="@glyphicon"></span></p>
-                <p class="h5">Author: <a class="userDetails" data-userID="@Model.Creator.Id" data-url="@Url.Action("GetUserDetails", "Account")" href="#">@Model.Creator.StoryTellerName </a></p>
+                <p class="h5">Author: <a class="userDetails" data-userID="@Model.Creator.Id" data-url="@Url.Action("GetUserDetails", "Account")">@Model.Creator.StoryTellerName </a></p>
                 <p class="h5">Parts: @Model.Chapters.Count()/@Model.MaxChaptersNumber</p>
                 <div class="storyTextAll">
                     <p class="block-with-text">@Model.Chapters.First().Text </p>
