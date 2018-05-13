@@ -11,7 +11,9 @@
     @Html.Partial("~/Views/Story/Partials/_StoryDetails.cshtml", Model)
 </div>
 
-<div class="storyVotingSection" id="VotingSection"></div>
+<div class="storyVotingSection" id="VotingSection" style="display:none;">
+
+</div>
 
 <!-- Modal Create Chapter -->
 <div class="modal" id="createNewChapterModal">
@@ -72,15 +74,12 @@
                       success: function (result) {
                           console.log(result);
                           $("#commentSection").html(result);
+                          $("time.created").timeago();
                       }
                   });
             });
 
             var timer;
-
-            function isNotEmpty(text) {
-                return /\S/.test(text);
-            }
 
             function updateStoryText() {
                 $.ajax({
@@ -97,7 +96,6 @@
             }
 
             function updateVotingPartial() {
-                  //debugger;
                    var storyFinished = @Model.IsFull.ToString().ToLower();
 
                    if (storyFinished == true) {
@@ -108,8 +106,8 @@
                        url: "@Url.Action("GetVotingPartial", "Story")",
                        type: "POST",
                          data: { storyID: @Model.ID },
-                         success: function (result) {
-
+                       success: function (result) {
+                              $('#VotingSection').hide();
                               $('#VotingSection').html(result);
 
 
@@ -127,13 +125,16 @@
 
                                   var distanceNow = countDownDate - now;
 
-                                  var days = Math.floor(distanceNow / (1000 * 60 * 60 * 24));
-                                  var hours = Math.floor((distanceNow % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                  var minutes = Math.floor((distanceNow % (1000 * 60 * 60)) / (1000 * 60));
-                                  var seconds = Math.floor((distanceNow % (1000 * 60)) / 1000);
+                                  if (distanceNow >= 0) {
 
-                                  document.getElementById("timer").innerHTML = /*days + "d " +*/ hours + "h "
-                                      + minutes + "m " + seconds + "s ";
+                                      var days = Math.floor(distanceNow / (1000 * 60 * 60 * 24));
+                                      var hours = Math.floor((distanceNow % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                      var minutes = Math.floor((distanceNow % (1000 * 60 * 60)) / (1000 * 60));
+                                      var seconds = Math.floor((distanceNow % (1000 * 60)) / 1000);
+
+                                      document.getElementById("timer").innerHTML = /*days + "d " +*/ hours + "h "
+                                          + minutes + "m " + seconds + "s ";
+                                  }
 
                                   var timerDialog = document.getElementById("timerDialog");
                                   if (timerDialog) {
@@ -141,14 +142,20 @@
                                   }
 
                                   if (distanceNow < 0) {
+
+                                      console.log(distanceNow);
+
                                       clearInterval(timer);
                                       updateVotingPartial();
                                       updateStoryText();
+
+                                  } else {
+                                      $("#VotingSection").show();
                                   }
+
                               }, 1000);
                 },
                 error: function (result) {
-                    debugger;
                     console.log(result);
                 }
                 });

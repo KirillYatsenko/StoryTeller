@@ -1,7 +1,10 @@
 ﻿@model StoryTeller.Domain.Models.Story
 @using Microsoft.AspNet.Identity
 
-@{ var id = "story" + Model.ID.ToString();}
+@{
+    var id = "story" + Model.ID.ToString();
+    var viewCountId = "viewsCount" + Model.ID;
+}
 
 <div class="marginTop50" id="@id">
     <hr />
@@ -28,7 +31,7 @@
 
             <div class=" topright">
                 <button disabled type="button" class="btn btn-default btn-sm ">
-                    <span class="glyphicon glyphicon-eye-open"></span> @Model.ViewsCount
+                    <span class="glyphicon glyphicon-eye-open"></span><text id="@viewCountId"> @Model.ViewsCount</text>
                     <span> | </span>
                     <span class="glyphicon glyphicon-comment"></span> @Model.Comments.Count
                 </button>
@@ -37,7 +40,7 @@
                     <button type="button" class="btn btn-danger btn-sm " style="margin-left:10px" onclick="btnDeleteClick(@Model.ID)">
                         <span class="glyphicon glyphicon-trash"></span> Delete
                     </button>
-                     <button type = "button" class="btn btn-warning btn-sm" onclick="btnEditClick(@Model.ID)">
+                    <button type="button" class="btn btn-warning btn-sm" onclick="btnEditClick(@Model.ID)">
                         <span class="glyphicon glyphicon-list-alt"></span> Edit
                     </button>
                 }
@@ -50,14 +53,14 @@
                         var idLikeBtn = "likeBtn" + Model.ID.ToString();
                         var idLikeCount = "likeCount" + Model.ID.ToString();
 
-                        if (Model.Likes.ToList().Exists(x=>x.User.Id == User.Identity.GetUserId()))
+                        if (Model.Likes.ToList().Exists(x => x.User.Id == User.Identity.GetUserId()))
                         {
                             cssClass = "btn-warning";
                         }
 
-                <button id="@idLikeBtn" type="button" class=" btn @cssClass btn-sm " onclick="btnLikeClick(@Model.ID)">
-                    <span class="glyphicon glyphicon-thumbs-up"></span> <span id="@idLikeCount">@Model.Likes.Count()</span>
-                </button>
+                        <button id="@idLikeBtn" type="button" class=" btn @cssClass btn-sm " onclick="btnLikeClick(@Model.ID)">
+                            <span class="glyphicon glyphicon-thumbs-up"></span> <span id="@idLikeCount">@Model.Likes.Count()</span>
+                        </button>
                     }
                 }
             </div>
@@ -71,10 +74,10 @@
             }
 
             <div class="col-md-7">
-                <p class="h1"><b class="title">@Html.ActionLink(Model.Title, "Details", "Story", new { ID = Model.ID }, null)</b> <small><time class="created" datetime="@Model.Created.ToString()"></time></small></p>
+                <p class="h1"><b>@Html.ActionLink(Model.Title, "Details", "Story", new { ID = Model.ID, }, htmlAttributes: new { @class = "title", @dataStoryID = Model.ID })</b> <small><time class="created" datetime="@Model.Created.ToString()"></time></small></p>
                 <p class="h4 @color"><b>@Model.ProgressStatusText</b> <span class="@glyphicon"></span></p>
                 <p class="h5">Author: <a class="userDetails" data-userID="@Model.Creator.Id" data-url="@Url.Action("GetUserDetails", "Account")">@Model.Creator.StoryTellerName </a></p>
-                <p class="h5">Parts: @Model.Chapters.Count()/@Model.MaxChaptersNumber</p>
+                <p class="h5">Chapters: @Model.Chapters.Count()/@Model.MaxChaptersNumber</p>
                 <div class="storyTextAll">
                     <p class="block-with-text">@Model.Chapters.First().Text </p>
                 </div>

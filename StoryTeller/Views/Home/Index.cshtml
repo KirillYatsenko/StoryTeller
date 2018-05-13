@@ -2,12 +2,6 @@
     ViewBag.Title = "Stories";
 }
 
-<div class="col-md-12 marginTop50" style="text-align:center">
-    <div>
-        <input type="text" id="myInput" placeholder="Search for stories..">
-    </div>
-</div>
-
 <!-- Modal Edit Story-->
 <div class="modal" id="editStoryModal">
     <div class="modal-dialog" role="document">
@@ -38,21 +32,25 @@
 @section scripts{
     <script type="text/javascript">
 
-        $("#myInput").on("keyup", function () {
-            var searchText = $(this).val();
+        //$("#myInput").on("keyup", function () {
 
-            $(".title").each(function () {
+        //    console.log("trigged");
 
-                var titleText = $(this).text();
+        //    var searchText = $(this).val();
 
-                if (titleText.toUpperCase().indexOf(searchText.toUpperCase()) != -1) {
-                    $(this).parent().parent().parent().show();
-                } else {
-                    $(this).parent().parent().parent().hide();
-                }
-            });
+        //    $(".title").each(function () {
 
-        });
+        //        var titleText = $(this).text();
+
+        //        if (titleText.toUpperCase().indexOf(searchText.toUpperCase()) != -1) {
+        //            $(this).parent().parent().parent().parent().parent().show();
+        //        } else {
+        //            console.log($(this).parent().parent().parent().parent());
+        //            $(this).parent().parent().parent().parent().parent().hide();
+        //        }
+        //    });
+
+        //});
 
         var editStoryID;
         function btnEditClick(storyID) {
@@ -144,10 +142,10 @@
                 success: function (result) {
                     if (result.operation == "liked") {
                         changeClass("btn-default", "btn-warning", btnID);
-                        incrementLikeCounts(idLikeCount);
+                      //  incrementLikeCounts(idLikeCount);
                     } else {
                         changeClass("btn-warning", "btn-default", btnID);
-                        decrementLikeCounts(idLikeCount);
+                      //  decrementLikeCounts(idLikeCount);
                     }
                 }, error: function (result) {
                 }

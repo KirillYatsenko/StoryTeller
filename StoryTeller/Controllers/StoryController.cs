@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.SignalR;
 using StoryTeller.Common;
+using StoryTeller.Common.Helpers;
+using StoryTeller.Common.Hubs;
 using StoryTeller.Domain.Common;
 using StoryTeller.Domain.Models;
 using StoryTeller.Models;
@@ -23,11 +26,15 @@ namespace StoryTeller.Controllers
     {
         private ApplicationDbContext db;
         private UserManager<ApplicationUser> manager;
+        private IHubContext likeHub;
+        private IHubContext votingHub;
 
         public StoryController()
         {
             db = new ApplicationDbContext();
             manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            likeHub = GlobalHost.ConnectionManager.GetHubContext<LikesHub>();
+            votingHub = GlobalHost.ConnectionManager.GetHubContext<VotingHub>();
         }
 
         [HttpPost]
@@ -37,7 +44,7 @@ namespace StoryTeller.Controllers
         }
 
         // GET: Stories/Details/5
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,16 +58,11 @@ namespace StoryTeller.Controllers
                 return HttpNotFound();
             }
 
-            story.ViewsCount++;
-            await db.SaveChangesAsync();
-
-            //    Timer_Helper.SetStoryVoting(story);
-
             return View(story);
         }
 
         // GET: Stories/Create
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult Create()
         {
             ViewBag.ID = new SelectList(db.Votings, "ID", "ID");
@@ -88,6 +90,8 @@ namespace StoryTeller.Controllers
             {
                 var story = await db.Stories.FindAsync(chapter.StoryId);
                 var userChapter = story.ChaptersToVote.FirstOrDefault(x => x.Chapter.User == this.CurrentUser);
+                var isAdded = false;
+                ChapterToVote chapterToVote = null;
 
                 if (userChapter != null)
                 {
@@ -95,11 +99,19 @@ namespace StoryTeller.Controllers
                 }
                 else
                 {
-                    var chapterToVote = new ChapterToVote() { Chapter = new Chapter() { Text = chapter.Text, Created = DateTime.Now, User = CurrentUser } };
+                    chapterToVote = new ChapterToVote() { Chapter = new Chapter() { Text = chapter.Text, Created = DateTime.Now, User = CurrentUser } };
                     story.ChaptersToVote.Add(chapterToVote);
+                    isAdded = true;
                 }
 
                 await db.SaveChangesAsync();
+
+                if(isAdded == true)
+                {
+                    var chapterPartialView = PartialViewParsesr.RenderPartialToString("~/Views/Story/Partials/_ChapterToVote.cshtml", chapterToVote, this.ControllerContext);
+                    votingHub.Clients.All.AddChapterToVote(chapterPartialView);
+                }
+
                 return PartialView("~/Views/Story/Partials/_Thanks.cshtml");
             }
 
@@ -349,6 +361,7 @@ namespace StoryTeller.Controllers
        
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> Like(int storyID)
         {
             var operation = "liked";
@@ -369,6 +382,8 @@ namespace StoryTeller.Controllers
 
             await db.SaveChangesAsync();
 
+            likeHub.Clients.All.updateLikeCount(story.Likes.Count, story.ID);
+
             return Json(new { success = true, operation = operation });
         }
 
@@ -383,8 +398,13 @@ namespace StoryTeller.Controllers
             return PartialView("~/Views/Story/Partials/_CommentSection.cshtml", story.Comments.ToList());
         }
 
-        public async Task<FileContentResult> StoryPhoto(int storyID)
+        public async Task<FileContentResult> StoryPhoto(int? storyID)
         {
+            if(storyID == null)
+            {
+                return File(getPicture(@"~/Content/Images/story.jpg"), "image/png");
+            }
+
             var story = await db.Stories.FindAsync(storyID);
 
             if (story.Picture.Count() > 0)
@@ -393,11 +413,35 @@ namespace StoryTeller.Controllers
             }
             else
             {
-                string fileName = HttpContext.Server.MapPath(@"~/Content/Images/story.jpg");
-                var imageData = FileBinaryConvertor.GetFile(fileName);
-
-                return File(imageData, "image/png");
+                return File(getPicture(@"~/Content/Images/story.jpg"), "image/png");
             }
+        }
+
+
+        public ActionResult Search()
+        {
+            return PartialView("~/Views/Shared/_SearchForm.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult SearchSubmit(SearchViewModel searchViewModel)
+        {
+            var searchText = searchViewModel.SearchText;
+
+            if (searchText == null || searchText == string.Empty)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("Index", "Home", new { searchText = searchViewModel.SearchText });
+        }
+
+        private byte[] getPicture(string photoPath)
+        {
+            string fileName = HttpContext.Server.MapPath(photoPath);
+            var imageData = FileBinaryConvertor.GetFile(fileName);
+
+            return imageData;
         }
 
         private ApplicationUser CurrentUser

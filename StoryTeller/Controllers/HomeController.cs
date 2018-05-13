@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using StoryTeller.Domain.Models;
 using StoryTeller.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -24,9 +25,19 @@ namespace StoryTeller.Controllers
         }
 
         // GET: Stories
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string searchText)
         {
-            var stories = await db.Stories.ToListAsync();
+            List<Story> stories;
+
+            if(searchText != null)
+            {
+                stories = await db.Stories.Where(x => x.Title.Contains(searchText) || x.Chapters.FirstOrDefault().Text.Contains(searchText)).ToListAsync();
+            }
+            else
+            {
+                stories = await db.Stories.ToListAsync();
+            }
+
             return View(stories.OrderByDescending(x => x.Created));
         }
 

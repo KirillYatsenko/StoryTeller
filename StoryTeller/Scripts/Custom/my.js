@@ -29,6 +29,27 @@ $(document).on('click', '#closeUserDetails', function () {
     $(document).scrollTop(scroll);
 });
 
+function isNotEmpty(text) {
+    return /\S/.test(text);
+}
+
+$(document).on('click', '#btn-search', function () {
+
+    var text = $("#search-input").val();
+
+    if (!isNotEmpty(text)) {
+        return;
+    }
+
+    $.ajax({
+        url: "Story/Search",
+        type: "POST",
+        data: { searchText: text }
+    });
+
+});
+
+
 function setImage(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -48,6 +69,11 @@ $(document).on('change', '#file-upload', function () {
 
     setImage(this);
 });
+
+function logoff() {
+    console.log("logoff");
+    $("#logoutForm").submit();
+}
 
 $(document).ready(function () {
 

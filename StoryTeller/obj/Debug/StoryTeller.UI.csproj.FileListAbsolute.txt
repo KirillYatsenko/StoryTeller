@@ -223,3 +223,7 @@ C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller\obj\D
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.UI.csproj.CopyComplete
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.dll
 C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller\obj\Debug\StoryTeller.pdb
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\yatse\Desktop\University\StoryTeller_code\StoryTeller\StoryTeller\bin\Microsoft.AspNet.SignalR.SystemWeb.xml

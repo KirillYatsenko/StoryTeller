@@ -295,3 +295,14 @@ input[type="file"] {
 body.modal-open {
     overflow: hidden;
 }
+
+.first-chapter-text{
+    display:block;
+    max-width:100% !important;
+}
+
+.firstchapter-label{
+    display:block;
+    text-align:center !important;
+    margin-bottom:5px !important;
+}
