@@ -60,6 +60,9 @@
                     @Html.LabelFor(model => model.MaxChapterLength, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
                         @Html.EditorFor(model => model.MaxChapterLength, new { htmlAttributes = new { @class = "form-control" } })
+                        <div style="display:inline-block;font-style:italic">
+                            Number of characters
+                        </div>
                         @Html.ValidationMessageFor(model => model.MaxChapterLength, "", new { @class = "text-danger" })
                     </div>
                 </div>
