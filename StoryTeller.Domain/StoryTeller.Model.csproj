@@ -106,6 +106,10 @@
     <Compile Include="Migrations\201805031526192_commentFixed.Designer.cs">
       <DependentUpon>201805031526192_commentFixed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806131224290_update2.cs" />
+    <Compile Include="Migrations\201806131224290_update2.Designer.cs">
+      <DependentUpon>201806131224290_update2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Chapter.cs" />
@@ -157,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805031526192_commentFixed.resx">
       <DependentUpon>201805031526192_commentFixed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806131224290_update2.resx">
+      <DependentUpon>201806131224290_update2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

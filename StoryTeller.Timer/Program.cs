@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace StoryTeller.Timer
 {
-    class Program
+    public static class StoryTellerTimer
     {
-        private static ApplicationDbContext db = new ApplicationDbContext(); 
+        private static ApplicationDbContext db = new ApplicationDbContext();
 
-        static void Main(string[] args)
+        public static async void Start()
         {
             var stories = db.Stories.ToList().Where(x => !x.IsFull).ToList(); /* db.Stories.AsNoTracking().ToList();*/
 
             foreach (var story in stories)
             {
                 Timer_Helper.ResetStoryVoting(story);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
             while (true)
@@ -31,9 +31,19 @@ namespace StoryTeller.Timer
                     db.Entry(story).Collection(x => x.ChaptersToVote).Load();
 
                     Timer_Helper.SetStoryVotingState(story);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             }
+        }
+
+    }
+
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+          
         }
 
         //static void setStoryVoting(Story story)

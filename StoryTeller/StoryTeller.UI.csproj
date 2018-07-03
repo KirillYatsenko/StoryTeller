@@ -409,6 +409,10 @@
       <Project>{5578e524-9bb8-4d97-a6e6-796a73c9fac6}</Project>
       <Name>StoryTeller.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StoryTeller.Timer\StoryTeller.Timer.csproj">
+      <Project>{645c75c0-c6ed-4513-8c69-06922de4f3cc}</Project>
+      <Name>StoryTeller.Timer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />

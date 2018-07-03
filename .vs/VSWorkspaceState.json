@@ -1,7 +1,6 @@
 {
   "ExpandedNodes": [
     "",
-    "\\StoryTeller",
     "\\StoryTeller\\Content",
     "\\StoryTeller\\Controllers",
     "\\StoryTeller\\Scripts",
@@ -10,6 +9,5 @@
     "\\StoryTeller\\Views\\Home",
     "\\StoryTeller\\Views\\Shared"
   ],
-  "SelectedNode": "\\StoryTeller\\Scripts\\Custom\\my.js",
   "PreviewInSolutionExplorer": false
 }
