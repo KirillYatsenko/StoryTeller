@@ -4,6 +4,7 @@ using StoryTeller.Domain.Models;
 using StoryTeller.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,13 +21,18 @@ namespace StoryTeller.Controllers
 
         public HomeController()
         {
+            Trace.WriteLine("Homecontroller()");
+
             db = new ApplicationDbContext();
+            Trace.WriteLine("db created in Homeconroller()");
             manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
         // GET: Stories
         public async Task<ActionResult> Index(string searchText)
         {
+            Trace.WriteLine("home index begin...");
+
             List<Story> stories;
 
             if(searchText != null)
@@ -37,6 +43,9 @@ namespace StoryTeller.Controllers
             {
                 stories = await db.Stories.ToListAsync();
             }
+
+
+            Trace.WriteLine("home index end");
 
             return View(stories.OrderByDescending(x => x.Created));
         }

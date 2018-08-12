@@ -1,0 +1,308 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.btnNotVoted {
+    color: red;
+}
+
+.btnVoted {
+    color: black;
+}
+
+.storyTitle {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.storyText {
+    /*width: 50%;*/
+    margin-top: 100px !important;
+}
+
+.textAlignCenter {
+    text-align: center;
+}
+
+.center {
+    float: none;
+    margin: 0 auto;
+}
+
+
+.storyVotingSection {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#formCreateNewChapter {
+    text-align: center;
+}
+
+.chapterTextArea {
+    width: 500px;
+    max-width: 500px !important;
+    height: 200px !important;
+    max-height: 800px !important;
+}
+
+#chaptersToVote {
+    margin-top: 50px !important;
+}
+
+.chapterVoteTitle {
+    text-align: left !important;
+}
+
+/*.storyTextAll {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}*/
+
+body {
+    margin: 0;
+    padding: 50px;
+}
+
+/* mixin for multiline */
+.block-with-text {
+    overflow: hidden;
+    position: relative;
+    line-height: 1.2em;
+    max-height: 12em; /*1.2 * 10lines = 12*/
+    text-align: justify;
+    margin-right: -1em;
+    padding-right: 1em;
+}
+
+    .block-with-text:before {
+        content: '...';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    .block-with-text:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        width: 1em;
+        height: 1em;
+        margin-top: 0.2em;
+        background: white;
+    }
+
+.marginTop50 {
+    margin-top: 50px;
+}
+
+.btn-add-newstory {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.minutesLabel {
+    display: inline-block;
+}
+
+.createStoryFirstChapter {
+    height: 200px !important;
+    max-height: 800px !important;
+}
+
+/*Google button*/
+
+.btn-googleplus {
+    background: #E93F2E;
+    border-radius: 0;
+    color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b72213;
+}
+
+    .btn-googleplus:link, .btn-googleplus:visited {
+        color: #fff;
+    }
+
+    .btn-googleplus:active, .btn-googleplus:hover {
+        background: #b72213;
+        color: #fff;
+    }
+
+.topright {
+    /*line-height: 12px;
+    width: 18px;
+    font-size: 8pt;
+    font-family: tahoma;*/
+    margin-top: 1px;
+    margin-right: 2px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.image-center {
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.chapter {
+    margin-top: 20px;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#bottom-right-button {
+    position: fixed;
+    bottom: -4px;
+    right: 20px;
+    z-index: 99999;
+}
+
+.liked {
+    color: yellow;
+}
+
+.thumb-contenido {
+    margin-bottom: 1%;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+
+/*Search bar*/
+#myInput {
+    background-image: url('/Content/Images/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+#myUL {
+    /* Remove default list styling */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+    #myUL li a {
+        border: 1px solid #ddd; /* Add a border to all links */
+        margin-top: -1px; /* Prevent double borders */
+        background-color: #f6f6f6; /* Grey background color */
+        padding: 12px; /* Add some padding */
+        text-decoration: none; /* Remove default text underline */
+        font-size: 18px; /* Increase the font-size */
+        color: black; /* Add a black text color */
+        display: block; /* Make it into a block element to fill the whole list */
+    }
+
+        #myUL li a:hover:not(.header) {
+            background-color: #eee; /* Add a hover effect to all links, except for headers */
+        }
+
+.voteButton {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+}
+
+/*-----------Comments-----------*/
+.thumbnail {
+    padding: 0px;
+}
+
+.panel {
+    position: relative;
+}
+
+.panel > .panel-heading:after, .panel > .panel-heading:before {
+        position: absolute;
+        top: 11px;
+        left: -16px;
+        right: 100%;
+        width: 0;
+        height: 0;
+        display: block;
+        content: " ";
+        border-color: transparent;
+        border-style: solid solid outset;
+        pointer-events: none;
+}
+
+.panel > .panel-heading:after {
+        border-width: 7px;
+        border-right-color: #f7f7f7;
+        margin-top: 1px;
+        margin-left: 2px;
+}
+
+.panel > .panel-heading:before {
+        border-right-color: #ddd;
+        border-width: 8px;
+}
+
+/* Comment box*/
+.commnet-area{
+    max-width:100% !important;
+    width: 100% !important;
+}
+
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.first-chapter-text{
+    display:block;
+    max-width:100% !important;
+}
+
+.firstchapter-label{
+    display:block;
+    text-align:center !important;
+    margin-bottom:5px !important;
+}

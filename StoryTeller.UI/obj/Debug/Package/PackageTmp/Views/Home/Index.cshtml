@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Stories";
+}
+
+<!-- Modal Edit Story-->
+<div class="modal" id="editStoryModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit story</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="editStoryModalBody">
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Submit" id="editStoryBtn" />
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="userDetails">
+</div>
+
+<div id="postsList">
+    @Html.Partial("~/Views/Home/Partials/_Stories.cshtml")
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        //$("#myInput").on("keyup", function () {
+
+        //    console.log("trigged");
+
+        //    var searchText = $(this).val();
+
+        //    $(".title").each(function () {
+
+        //        var titleText = $(this).text();
+
+        //        if (titleText.toUpperCase().indexOf(searchText.toUpperCase()) != -1) {
+        //            $(this).parent().parent().parent().parent().parent().show();
+        //        } else {
+        //            console.log($(this).parent().parent().parent().parent());
+        //            $(this).parent().parent().parent().parent().parent().hide();
+        //        }
+        //    });
+
+        //});
+
+        var editStoryID;
+        function btnEditClick(storyID) {
+            $.ajax({
+                type:"GET",
+                url: "Story/Edit",
+                data: { storyID: storyID },
+                success: function (result) {
+
+                    scroll = $(window).scrollTop();
+                    editStoryID = storyID;
+
+                    $("#editStoryModalBody").html(result);
+                    $("#editStoryModal").modal("toggle");
+                },
+                eror: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        $(document).on('click', '#editStoryBtn', function () {
+            $("#formStoryEdit").submit();
+        });
+
+        $("#editStoryModalBody").on("submit", "#formStoryEdit", function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr("action"),
+                method: form.attr("method"),
+                data: form.serialize(),
+                success: function (partialResult) {
+                    var storyContainerID = "#storyContainer" + editStoryID;
+                    $(storyContainerID).html(partialResult);
+                    $("#editStoryModal").modal("hide");
+                    $(document).scrollTop(scroll);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+              
+
+            });
+        });
+
+        function btnDeleteClick(storyID) {
+            console.log("clicked");
+            var x = $.confirm({
+                title: 'Delete story',
+                content: 'Are you sure you want to delete story?',
+                buttons: {
+                    yes: function () {
+                        deleteStory(storyID);
+                    },
+                    cancel: function () {
+                    },
+                }
+            });
+
+            x.open();
+        }
+
+        function deleteStory(storyID) {
+            $.ajax({
+                type: "POST",
+                url: "Story/Delete",
+                data: { storyID: storyID },
+                success: function (result) {
+                    deleteDiv("story" + storyID);
+
+                }, error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function btnLikeClick(storyID) {
+
+            var btnID = "#likeBtn" + storyID;
+            var idLikeCount = "#likeCount" + storyID;
+
+            $.ajax({
+                type: "POST",
+                url: "Story/Like",
+                data: { storyID: storyID },
+                success: function (result) {
+                    if (result.operation == "liked") {
+                        changeClass("btn-default", "btn-warning", btnID);
+                      //  incrementLikeCounts(idLikeCount);
+                    } else {
+                        changeClass("btn-warning", "btn-default", btnID);
+                      //  decrementLikeCounts(idLikeCount);
+                    }
+                }, error: function (result) {
+                }
+            });
+
+        }
+
+        function changeClass(classToReplace, newClass, id) {
+            var element = $(id);
+            element.removeClass(classToReplace);
+            element.addClass(newClass);
+        }
+
+        function deleteDiv(id) {
+            console.log("#" + id);
+            $("#" + id).fadeOut();
+        }
+
+        function incrementLikeCounts(id) {
+
+            console.log("increment");
+            console.log(id);
+
+            var num = parseInt($(id).text()) + 1;
+            console.log(num);
+
+            $(id).text(num);
+        }
+
+        function decrementLikeCounts(id) {
+            console.log("decrement");
+            console.log(id);
+
+            var num = parseInt($(id).text()) - 1;
+            console.log(num);
+
+            $(id).text(num);
+        }
+
+
+    </script>
+}`
+

@@ -1,0 +1,16 @@
+﻿@model StoryTeller.Domain.Models.ChapterToVote
+
+
+<div class="col-md-6">
+    <div class="col-md-12 well">
+        <p class="h4  chapterVoteUser" style="text-align:left">
+            Created by <a class="userDetails" data-userID="@Model.Chapter.User.Id" data-url="@Url.Action("GetUserDetails", "Account")">@Model.Chapter.User.StoryTellerName </a>
+        </p>
+        <p class="h5" style="text-align:left">@Model.Chapter.Text</p>
+
+        @if (Model.Story.IsVoting != null && (bool)Model.Story.IsVoting == true)
+        {
+            <button class="btn btn-default voteButton  @Model.voteBtnStyle" @Model.voteBtnDisalbedAttr data-chapterToVoteId="@Model.ID" data-likesCount="@Model.GetLikesCount">Vote @Model.GetLikesCount</button>
+        }
+    </div>
+</div>

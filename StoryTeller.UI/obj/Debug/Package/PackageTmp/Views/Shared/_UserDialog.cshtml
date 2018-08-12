@@ -1,0 +1,36 @@
+﻿@model StoryTeller.Domain.Models.ApplicationUser
+
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="myModalLabel">@Model.StoryTellerName</h4>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <img src="@Url.Action("UserPhoto", "Account", new {userID = Model.Id } )" name="aboutme" width="140" height="140" border="0" class="img-circle">
+                    <h3 class="media-heading">@Model.Email</h3>
+                    <span><strong>Stats: </strong></span>
+                    <span class="label label-warning">Stories: @Model.Stories.Count()</span>
+                    <span class="label label-info">Chapters:  @Model.Chapters.Count()</span>
+                    @*<span class="label label-info">Microsoft Office</span>
+                    <span class="label label-success">Windows XP, Vista, 7</span>*@
+                </center>
+                <hr>
+                <center>
+                    <p class="text-left">
+                        <strong>Bio: </strong>
+                        @Model.Bio
+                    </p>
+                    <br>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="closeUserDetails">Close</button>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>

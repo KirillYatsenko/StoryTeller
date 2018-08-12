@@ -1,0 +1,76 @@
+﻿@model StoryTeller.Models.ViewModels.VotingSectionViewModel
+
+
+<input type="hidden" id="isVoting" value="@Model.IsVoting.ToString()">
+
+@{
+
+    if (!Model.IsFull)
+    {
+
+        <div class="textAlignCenter">
+            @Html.Partial("~/Views/Story/Partials/_Timer.cshtml", Model.TimerViewModel)
+        </div>
+
+        if (Model.IsVoting == true)
+        {
+            <p>Vote best chapter</p>
+        }
+        else
+        {
+            string buttonText = "";
+            if (Model.AlreadyAddedChapter == true)
+            {
+                buttonText = "Edit";
+            }
+            else
+            {
+                buttonText = "Add new chapter";
+            }
+            @*<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>*@
+            <button class="btn btn-success btn-lg textAlignCenter" type="button" id="addNewChapterBtn" data-toggle="modal" data-target="#createNewChapterModal">@buttonText</button>
+        }
+
+        <div id="chaptersToVote">
+            @{
+                var chapters = Model.VotingChaptersViewModel?.ChaptersToVote;
+                var chapterPartialPath = "~/Views/Story/Partials/_ChapterToVote.cshtml";
+
+                if (chapters != null && chapters.Count > 0)
+                {
+
+                    for (int i = 0; i < chapters.Count(); i += 2)
+                    {
+                        <div class="row">
+                            @{
+                                var chapter1 = chapters[i];
+                                object chapter2 = null;
+
+                                if (i + 1 < chapters.Count())
+                                {
+                                    chapter2 = chapters[i + 1];
+                                }
+
+                                Html.RenderPartial(chapterPartialPath, chapter1);
+
+                                if (chapter2 != null)
+                                {
+                                    Html.RenderPartial(chapterPartialPath, chapter2);
+                                }
+                            }
+                        </div>
+                    }
+
+                }
+
+            }
+
+            @*@foreach (var chapterToVote in Model.VotingChaptersViewModel?.ChaptersToVote)
+                {
+                    Html.RenderPartial("~/Views/Story/Partials/_ChapterToVote.cshtml", chapterToVote);
+                }*@
+        </div>
+    }
+
+}
+

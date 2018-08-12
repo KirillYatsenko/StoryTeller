@@ -18,7 +18,7 @@ namespace StoryTeller
                       "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom")
-            .IncludeDirectory("~/Scripts/Custom", "*.js",true).Include("~/Scripts/Custom/jquery-confirm.min.js"));
+            .IncludeDirectory("~/Scripts/Custom", "*.js", true).Include("~/Scripts/Custom/jquery-confirm.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr")
             .IncludeDirectory("~/Scripts/SignalR", "*.js")
@@ -33,15 +33,15 @@ namespace StoryTeller
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
-                      //"~/Content/bootstrap-theme.min.css",
-                      "~/Content/jquery-ui.min.css",
-                      "~/Content/site.css", "~/Content/jquery-confirm.min.css"));
 
-
-
-
+            bundles.Add(new StyleBundle("~/Content/css")
+                      .Include("~/Content/bootstrap.min.css")
+                      .Include("~/Content/jquery-ui.min.css")
+                      .Include("~/Content/site.css")
+                      .Include("~/Content/jquery-confirm.min.css")
+                      .Include("~/Content/font-fix.css")
+                      );
         }
     }
 }
+    

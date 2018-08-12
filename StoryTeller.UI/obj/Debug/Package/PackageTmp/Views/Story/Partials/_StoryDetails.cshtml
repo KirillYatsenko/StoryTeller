@@ -1,0 +1,59 @@
+﻿@model StoryTeller.Domain.Models.Story
+
+@{
+    string glyphicon;
+    string color;
+
+    if (Model.IsFull)
+    {
+        glyphicon = "glyphicon glyphicon-ok";
+        color = "text-success";
+    }
+    else
+    {
+        glyphicon = "glyphicon glyphicon-pencil";
+        color = "text-warning";
+    }
+
+}
+
+<div class="well">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row hidden-md hidden-lg"><h1 class="text-center">@Model.Title</h1></div>
+
+            <div class="pull-left col-md-4 col-xs-12 thumb-contenido"><img class="center-block img-responsive" src='@Url.Action("StoryPhoto", "Story", new { storyID = Model.ID} )' /></div>
+            <div class="">
+                <h1 class="hidden-xs hidden-sm" style="text-align:center;"><b>@Model.Title</b></h1>
+                <hr>
+                <p class="h4">
+                        Author:
+                        <a class="userDetails" data-userID="@Model.Creator.Id" data-url="@Url.Action("GetUserDetails", "Account")">
+                            <b> @Model.Creator.StoryTellerName</b>
+                        </a>
+                </p>
+                <p class="h4 @color"><b>@Model.ProgressStatusText</b> <span class="@glyphicon"></span></p>
+                <p class="h5"><b>Chapters: @Model.Chapters.Count/@Model.MaxChaptersNumber </b> </p>
+                <p class="h5"><b>Written: @Model.Created.ToShortDateString() </b> </p>
+                <p class="h5"><b>Reads: @Model.ViewsCount</b></p>
+                <hr>
+                <p class="text-justify" id="storyTextText">
+                    @{
+                        var count = 1;
+                        foreach (var chapter in Model.Chapters)
+                        {
+
+                        <p class="h4">
+                            <b>Chapter @count </b> by
+                            <a class="text-success userDetails" data-userID="@chapter.User.Id" data-url="@Url.Action("GetUserDetails", "Account")">@chapter.User.StoryTellerName</a>
+                        </p>
+                        <p style="font-weight:normal;">@chapter.Text</p>
+
+                        count++;
+                    }
+                    }
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

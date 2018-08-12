@@ -63,8 +63,8 @@ namespace StoryTeller
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "45361483443-g6929i43ciefcq592kuf5rjk745f4lf0.apps.googleusercontent.com",
-                ClientSecret = "ctRDIsT4l8CRn5b8l7ITzHPe"
+                ClientId = "70692682876-l6l2sj82krlau1f30nno3nqlh28ktrp5.apps.googleusercontent.com",
+                ClientSecret = "A4bRkj-g2sUYsKYl-1MTYXst"
             });
         }
     }

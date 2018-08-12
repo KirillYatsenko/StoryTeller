@@ -1,0 +1,8 @@
+﻿@model StoryTeller.Models.ViewModels.TimerViewModel
+
+    <p class="@Model.CssClass h2">@Model.TimerText</p>
+    <p id="timer" class="@Model.CssClass h2"></p>
+    <input type="hidden" id="timerDistance" value="@Model.Distance">
+    <input type="hidden" id="countDownDate" value="@Model.CountDownDate.ToString()">
+
+

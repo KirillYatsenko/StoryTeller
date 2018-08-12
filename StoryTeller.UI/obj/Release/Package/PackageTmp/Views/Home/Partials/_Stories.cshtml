@@ -1,0 +1,12 @@
+﻿@model IEnumerable<StoryTeller.Domain.Models.Story>
+
+@{
+    foreach (var story in Model)
+    {
+        var id = "storyContainer" + story.ID.ToString();
+        <div id="@id">
+            @Html.Partial("~/Views/Home/Partials/_Story.cshtml", story)
+        </div>
+
+    }
+}

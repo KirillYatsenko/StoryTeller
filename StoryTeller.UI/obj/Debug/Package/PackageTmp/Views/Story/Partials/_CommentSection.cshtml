@@ -1,0 +1,10 @@
+﻿@model IEnumerable<StoryTeller.Domain.Models.Comment>
+
+@Html.Partial("~/Views/Story/Partials/_AddComment.cshtml")
+
+@foreach (var comment in Model.OrderByDescending(x => x.Created))
+{
+    @Html.Partial("~/Views/Story/Partials/_Comment.cshtml", comment);
+}
+
+

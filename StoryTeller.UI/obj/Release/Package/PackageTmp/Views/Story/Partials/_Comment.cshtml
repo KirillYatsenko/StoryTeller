@@ -1,0 +1,29 @@
+﻿@model StoryTeller.Domain.Models.Comment
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img src="@Url.Action("UserPhoto", "Account", new {userID = Model.User.Id } )">
+            </div>
+        </div>
+
+        <div class="col-sm-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>
+                        <a class=" userDetails" data-userID="@Model.User.Id" data-url="@Url.Action("GetUserDetails", "Account")">@Model.User.StoryTellerName</a>
+                    </strong>
+                    <span class="text-muted">
+                        <time class="created" datetime="@Model.Created.ToString()" />
+                    </span>
+                </div>
+                <div class="panel-body">
+                    @Model.Text
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

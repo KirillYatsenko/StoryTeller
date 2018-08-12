@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNet.Identity
+@using StoryTeller.Common
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @*<ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <img src="@Url.Action("UserPhoto", "Account" )" height="48" width="48" />
+                    }
+
+                    @Html.ActionLink(User.Identity.GetStoryTellerName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+
+                <li>
+                    <button type="button" id="loginLink" class="btn btn-default navbar-btn" onclick="logoff()">Log off</button>
+                </li>
+            </ul>*@
+
+
+        <ul class="nav navbar-nav navbar-right">
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li> <img src="@Url.Action("UserPhoto", "Account" )" height="48" width="48" /></li>
+            }
+            <li>
+                @Html.ActionLink(User.Identity.GetStoryTellerName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><button type="button" id="loginLink" class="btn btn-default navbar-btn" onclick="logoff()">Log off</button></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li><button type="button" id="loginLink" class="btn btn-default navbar-btn" onclick="location.href='@Url.Action("Login", "Account")'">Sign In</button></li>
+    </ul>
+}

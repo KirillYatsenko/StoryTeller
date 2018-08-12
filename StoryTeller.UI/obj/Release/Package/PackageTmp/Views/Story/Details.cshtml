@@ -1,0 +1,275 @@
+﻿@model StoryTeller.Domain.Models.Story
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+
+
+
+<div id="storyDetails">
+    @Html.Partial("~/Views/Story/Partials/_StoryDetails.cshtml", Model)
+</div>
+
+<div class="storyVotingSection" id="VotingSection" style="display:none;">
+
+</div>
+
+<!-- Modal Create Chapter -->
+<div class="modal" id="createNewChapterModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add your chapter</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="createNewChapterDialog">
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Submit" id="createNewChapterBtn" />
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="userDetails">
+
+</div>
+
+<hr style="margin-top:50px"/>
+<div id="commentSection">
+    @Html.Partial("~/Views/Story/Partials/_CommentSection.cshtml", Model.Comments)
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(document).on('input propertychange', "#comment-text", function () {
+
+                console.log("typing comment....");
+
+                if (isNotEmpty($(this).val())) {
+                    $("#btn-post-comment").prop("disabled", false);
+                } else {
+                    $("#btn-post-comment").prop("disabled", true);
+                }
+
+            });
+
+            //$("#comment-text").bind('input propertychange', function () {
+            //});
+
+            $(document).on('click', '#btn-post-comment', function () {
+
+                var commentText = $("#comment-text").val();
+
+                  $.ajax({
+                      url: "@Url.Action("AddComment", "Story")",
+                      data: { storyID: @Model.ID, text: commentText  },
+                      success: function (result) {
+                          console.log(result);
+                          $("#commentSection").html(result);
+                          $("time.created").timeago();
+                      }
+                  });
+            });
+
+            var timer;
+
+            function updateStoryText() {
+                $.ajax({
+                    url: '@Url.Action("GetStoryDetails","Story")',
+                    type: 'POST',
+                    data: { storyID: @Model.ID},
+                    success: function (result) {
+                        $("#storyDetails").html(result);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            function updateVotingPartial() {
+                   var storyFinished = @Model.IsFull.ToString().ToLower();
+
+                   if (storyFinished == true) {
+                            return;
+                   }
+
+                   $.ajax({
+                       url: "@Url.Action("GetVotingPartial", "Story")",
+                       type: "POST",
+                         data: { storyID: @Model.ID },
+                       success: function (result) {
+                              $('#VotingSection').hide();
+                              $('#VotingSection').html(result);
+
+
+                              timer = setInterval(function () {
+
+                                  var isVoting = $("#isVoting").attr("value");
+                                  if (isVoting.toLowerCase() == "false") {
+                                      $("#createNewChapterBtn").attr("disabled", false);
+                                  } else {
+                                      $("#createNewChapterBtn").attr("disabled", true);
+                                  }
+
+                                  var now = new Date().getTime();
+                                  var countDownDate = new Date(document.getElementById("countDownDate").value).getTime();
+
+                                  var distanceNow = countDownDate - now;
+
+                                  if (distanceNow >= 0) {
+
+                                      var days = Math.floor(distanceNow / (1000 * 60 * 60 * 24));
+                                      var hours = Math.floor((distanceNow % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                      var minutes = Math.floor((distanceNow % (1000 * 60 * 60)) / (1000 * 60));
+                                      var seconds = Math.floor((distanceNow % (1000 * 60)) / 1000);
+
+                                      document.getElementById("timer").innerHTML = /*days + "d " +*/ hours + "h "
+                                          + minutes + "m " + seconds + "s ";
+                                  }
+
+                                  var timerDialog = document.getElementById("timerDialog");
+                                  if (timerDialog) {
+                                      timerDialog.innerHTML = document.getElementById("timer").innerHTML;
+                                  }
+
+                                  if (distanceNow < 0) {
+
+                                      console.log(distanceNow);
+
+                                      clearInterval(timer);
+                                      updateVotingPartial();
+                                      updateStoryText();
+
+                                  } else {
+                                      $("#VotingSection").show();
+                                  }
+
+                              }, 1000);
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+                });
+            }
+
+
+            $(document).on('click', '#addNewChapterBtn', function () {
+                  $.ajax({
+                      url: "@Url.Action("CreateNewChapter", "Story")",
+                      data: { storyId: @Model.ID },
+                      success: function (result) {
+                          var modal = $('#modal');
+                          $("#createNewChapterDialog").html(result);
+                      }
+                  });
+            });
+
+            $(document).on('click', '#createNewChapterBtn', function () {
+                $("#formCreateNewChapter").submit();
+            });
+
+              var votedChapterBtn;// = $("#chaptersToVote").find(".btnVoted");
+
+              $(document).on('click', '.voteButton', function () {
+
+                  votedChapterBtn = $("#chaptersToVote").find(".btnVoted");
+
+                  function setVoteAttrs(btn, count) {
+                      btn.html("Vote " + count);
+                      btn.attr("data-likesCount", count);
+                  }
+
+                  function btnLikesPlusOne(btn) {
+                      var likesCount = parseInt(btn.attr("data-likesCount")) + 1;
+                      btn.attr("disabled", true);
+                      setVoteAttrs(btn, likesCount);
+                  }
+
+                  function btnLikesMinusOne(btn){
+                      var likesCount = parseInt(btn.attr("data-likesCount")) - 1;
+                      btn.attr("disabled", false);
+                      setVoteAttrs(btn, likesCount);
+                  }
+
+                  var storyID = @Model.ID;
+                  var chapterID = $(this).attr("data-chapterToVoteId");
+
+                  var btn = $(this);
+
+                  $.ajax({
+                      url: "@Url.Action("VoteChapter", "Story")",
+                      data: { storyID: storyID, chapterID: chapterID },
+                      success: function (result) {
+
+                          //debugger;
+
+                          var votedCss = "btnVoted";
+                          var notVotedCss = "btnNotVoted";
+
+                          if (btn.hasClass(votedCss)) {
+                              btn.removeClass(votedCss).addClass(notVotedCss);
+                              btnLikesMinusOne(btn)
+                          } else if (btn.hasClass(notVotedCss)) {
+
+                              //debugger;
+
+                              btn.removeClass(notVotedCss).addClass(votedCss);
+                              btnLikesPlusOne(btn);
+
+
+                              if (votedChapterBtn) {
+                                  votedChapterBtn.removeClass(votedCss).addClass(notVotedCss);
+                                  btnLikesMinusOne(votedChapterBtn);
+                              }
+
+                              votedChapterBtn = btn;
+                          }
+
+                      }, error: function (result) {
+                          alert("error")
+                      }
+                  });
+
+              });
+
+              updateVotingPartial();
+
+              $("#createNewChapterDialog").on("submit", "#formCreateNewChapter", function (e) {
+                  e.preventDefault();
+
+                  var form = $(this);
+
+                  $.ajax({
+                      url: form.attr("action"),
+                      method: form.attr("method"),
+                      data: form.serialize(),
+                      success: function (partialResult) {
+                          $("#addNewChapterBtn").innerHTML = "Edit";
+                          //debugger;
+                          $("#createNewChapterDialog").html(partialResult);
+                          clearInterval(timer);
+                          updateVotingPartial();
+                      }
+
+                  });
+              });
+
+
+
+
+        });
+
+    </script>
+}
+
+
+
