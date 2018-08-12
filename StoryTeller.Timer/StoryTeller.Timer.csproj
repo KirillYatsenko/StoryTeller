@@ -58,7 +58,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StoryTeller.Domain\StoryTeller.Model.csproj">
+    <ProjectReference Include="..\StoryTeller.Model\StoryTeller.Model.csproj">
       <Project>{5578e524-9bb8-4d97-a6e6-796a73c9fac6}</Project>
       <Name>StoryTeller.Model</Name>
     </ProjectReference>
